@@ -1,0 +1,109 @@
+      <div id="main">
+        <div class="header">
+          <h1>Oszcilloszkóp</h1>
+        </div>
+
+        <canvas id="oscilloscope" width="100px" height="100px"/>
+      </div>
+    </div>
+    <script>
+      loadScript("/interpolator.js");
+
+      var measurementData = [];
+      
+      function drawCoordinates() {
+        var c = document.getElementById("oscilloscope");
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.rect(0, 0, c.width, c.height);
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.strokeStyle = 'purple';
+        var lwdth = c.width / 800;
+        if(lwdth < 1) {
+          lwdth = 1;
+        }
+        ctx.lineWidth = lwdth;
+        ctx.moveTo(0, c.height / 2);
+        ctx.lineTo(c.width, c.height / 2);
+        ctx.stroke();
+
+        ctx.moveTo(c.width/2, 0);
+        ctx.lineTo(c.width/2, c.height);
+        ctx.stroke();
+      }
+
+      function drawInterpolatedCurve(array) {
+        var c = document.getElementById("oscilloscope");
+        var ctx = c.getContext("2d");
+        
+        var zero = c.height / 2;
+        var scale = c.height / 2 / 10000;
+        
+        var xdiv = c.width / (array.length);
+        var offset = xdiv / 2;
+        
+        var lwdth = c.width / 400;
+        if(lwdth < 1) {
+          lwdth = 1;
+        }
+        
+        var x = offset;
+        
+        var points = [];
+        for (var i = 0; i < array.length; i++) {
+          var y = (-array[i]) * scale + zero;
+          points.push([x,y]);
+          x += xdiv;
+        }
+        
+        ctx.lineWidth = lwdth;
+        ctx.strokeStyle = 'green';
+        drawCurve(ctx, points);
+      }
+      
+      function redrawCanvas() {
+        drawCoordinates();
+        if( measurementData.length > 0 ) {
+          drawInterpolatedCurve(measurementData);
+        }
+      }
+      
+      
+      function calcSize() {
+        var mainElement = document.getElementById("main");
+        var calcWidth = mainElement.offsetWidth;
+        var calcHeight = 0.5 * calcWidth;
+
+        var canvas = document.getElementById("oscilloscope");
+        canvas.width = calcWidth;
+        canvas.height = calcHeight;
+      };
+      
+      window.onresize = function() {
+        calcSize();
+        redrawCanvas();
+      };
+      
+      onLoad(function() {
+        initMenu();
+        
+        calcSize();
+        redrawCanvas();
+        
+        var loadData = function() {
+          ajaxJson("GET", "/oscilloscope.json", function(data) {
+            factor = data.factor;
+            drawControls = data.controlPoints;
+            measurementData = data.data;
+            redrawCanvas();
+            setTimeout(loadData, 250);
+          }, function() { setTimeout(loadData, 1000); });
+        };
+        loadData();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+    <title>WebKonnektor</title>
+    <link rel="stylesheet" href="pure.css" type="text/css">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/ui.js"></script>
+  </head>
+  <body>
+    <!-- konnektor vezérlő -->
+    <div id="layout">
+      <a href="#menu" id="menuLink" class="menu-link"><span></span></a>
+      <div id="menu">
+        <div class="pure-menu">
+          <div class="pure-menu-heading">WebKonnektor</div>
+          <div class="pure-menu-heading system-name" style="padding: 0px 0.6em"></div>
+          <ul id="menu-list" class="pure-menu-list">
+            <li class=\"pure-menu-item"><a href="/vezerles.html" class="pure-menu-link">Vezérlés</a></li>
+            <li class=\"pure-menu-item"><a href="/beallitasok.html" class="pure-menu-link">Beállítások</a></li>
+            <li class=\"pure-menu-item"><a href="/oscilloscope.html" class="pure-menu-link">Oszcilloszkóp</a></li>
+            <li class=\"pure-menu-item"><a href="/teljesitmenymonitor.html" class="pure-menu-link">Teljesítmény Mon</a></li>
+            <li class=\"pure-menu-item"><a href="/logok.html" class="pure-menu-link">Logok</a></li>
+          </ul>
+        </div>
+      </div>
+
+      
