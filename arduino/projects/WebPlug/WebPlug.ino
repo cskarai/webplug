@@ -6,6 +6,7 @@
 #include "ISP.h"
 #include "attinycmd.h"
 #include "RF.h"
+#include "Config.h"
 
 /*******************************************
 
@@ -25,7 +26,9 @@ WPWebServer webPlugWebServer(80);
 
 void setup() {
   DBG_INIT();
-  DBG("Mains controller startup\n");
+  DBG("WebPlug startup\n");
+
+  config.init();
 
   // configure mains controller
   pinMode(RELAY_1, OUTPUT);

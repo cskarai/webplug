@@ -3,6 +3,7 @@
 #include <xprintf.h>
 #include "Attiny.h"
 #include "WebPages.h"
+#include "Config.h"
 
 #define FLSTR(s) ((const __FlashStringHelper*)(s))
 
@@ -10,16 +11,8 @@ extern "C"{
  #include "user_interface.h"
 }
 
-WPWebServer::WPWebServer(int port) : WebServerCommon(config, port)
+WPWebServer::WPWebServer(int port) : WebServerCommon(::config, port)
 {
-  // TODO
-  config.setSSID("******");  
-  config.setPassword("******");
-  config.setAPSSID("WebPlug");  
-  config.setHostName("WebPlug");
-  config.setWifiOpMode(STATION_MODE);
-  config.setSNTPServer("hu.pool.ntp.org");
-  config.setSNTPTimezoneOffset(2);
 }
 
 void WPWebServer::webEvent(int evntnum, const char *format, ...) {
@@ -48,12 +41,9 @@ void WPWebServer::handleScopeGet(AsyncWebServerRequest *request)
 {
   WebServerCommon * instance = WebServerCommon::getInstance();
 
-  float factor = 0.47f;
-  bool  drawControlPoints = false;
-
   String s = "{";
-  s += "\"factor\":" + String(factor) + ",";
-  s += "\"controlPoints\":" + String(drawControlPoints ? "true" : "false") + ",";
+  s += "\"factor\":" + String(::config.getInterpolationFactor()) + ",";
+  s += "\"controlPoints\":" + String(::config.isInterpolationControlPointDraw() ? "true" : "false") + ",";
   s += "\"data\":[";
 
   s += attiny.getOscilloscopeData();

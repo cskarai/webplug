@@ -6,8 +6,6 @@
 class WPWebServer : public WebServerCommon
 {
 private:
-  WebServerConfig config;
-
   static void handleScopeGet(AsyncWebServerRequest *request);
   static void handleRootGet(AsyncWebServerRequest *request);
   static void handleStaticGet(AsyncWebServerRequest *request);
