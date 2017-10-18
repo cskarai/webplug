@@ -15,6 +15,9 @@ class Config : public WebServerConfig
 
     float    interpolationFactor;
     bool     interpolationControlPointDraw;
+
+    int      mainsVoltage;
+    float    currentMultiplier;
     
   public:
     void     init();
@@ -28,6 +31,12 @@ class Config : public WebServerConfig
 
     bool     isInterpolationControlPointDraw() {return interpolationControlPointDraw; }
     void     setInterpolationControlPointDraw(int draw) {interpolationControlPointDraw = draw;}
+
+    float    getCurrentMultiplier() { return currentMultiplier; }
+    void     setCurrentMultiplier(float multiplier) { currentMultiplier = multiplier; }
+
+    int      getMainsVoltage() { return mainsVoltage; }
+    void     setMainsVoltage(int voltage) { mainsVoltage = voltage; }
 };
 
 extern Config config;

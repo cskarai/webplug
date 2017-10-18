@@ -44,6 +44,7 @@ void WPWebServer::handleScopeGet(AsyncWebServerRequest *request)
   String s = "{";
   s += "\"factor\":" + String(::config.getInterpolationFactor()) + ",";
   s += "\"controlPoints\":" + String(::config.isInterpolationControlPointDraw() ? "true" : "false") + ",";
+  s += "\"currentMultiplier\":" + String(::config.getCurrentMultiplier()) + ",";
   s += "\"data\":[";
 
   s += attiny.getOscilloscopeData();
