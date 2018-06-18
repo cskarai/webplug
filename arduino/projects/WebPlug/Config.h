@@ -4,6 +4,18 @@
 #include <inttypes.h>
 #include <WebServerCommon.h>
 
+
+#define RADIO_CODE_INVALID  0xFFFFFFFF
+
+#define RADIO_CODE_1_ON     0
+#define RADIO_CODE_1_OFF    1
+#define RADIO_CODE_1_TOGGLE 2
+#define RADIO_CODE_2_ON     3
+#define RADIO_CODE_2_OFF    4
+#define RADIO_CODE_2_TOGGLE 5
+#define RADIO_CODE_MAX      6
+
+
 class Config : public WebServerConfig
 {
   private:
@@ -18,6 +30,8 @@ class Config : public WebServerConfig
 
     int      mainsVoltage;
     float    currentMultiplier;
+
+    uint32_t radio_codes[6];
     
   public:
     void     init();
@@ -37,6 +51,9 @@ class Config : public WebServerConfig
 
     int      getMainsVoltage() { return mainsVoltage; }
     void     setMainsVoltage(int voltage) { mainsVoltage = voltage; }
+
+    uint32_t getRadioCode(int code);
+    void     setRadioCode(int code, uint32_t value);
 };
 
 extern Config config;

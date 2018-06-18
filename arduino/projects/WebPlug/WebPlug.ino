@@ -41,7 +41,7 @@ void setup() {
   rf.start();
 
   delay(200); // wait attiny to start
-  attiny.sendCommand(CMD_ADC_START_20X);
+  attiny.sendCommand(CMD_ADC_START);
 }
 
 void loop() {

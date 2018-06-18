@@ -70,7 +70,15 @@ void Config::restore()
 
   setCurrentMultiplier(DEFAULT_CURRENT_MULTIPLIER);
   setMainsVoltage(DEFAULT_MAINS_VOLTAGE);
-  
+    
+  // disable Radio codes
+  setRadioCode(RADIO_CODE_1_ON, RADIO_CODE_INVALID);
+  setRadioCode(RADIO_CODE_1_OFF, RADIO_CODE_INVALID);
+  setRadioCode(RADIO_CODE_1_TOGGLE, RADIO_CODE_INVALID);
+  setRadioCode(RADIO_CODE_2_ON, RADIO_CODE_INVALID);
+  setRadioCode(RADIO_CODE_2_OFF, RADIO_CODE_INVALID);
+  setRadioCode(RADIO_CODE_2_TOGGLE, RADIO_CODE_INVALID);
+
   save();
 }
 
@@ -91,5 +99,30 @@ uint16_t Config::crc16_data(const uint8_t *data, int len, uint16_t acc)
     ++data;
   }
   return acc;
+}
+
+uint32_t Config::getRadioCode(int code)
+{
+  if(( code >= 0 ) && (code < RADIO_CODE_MAX))
+    return radio_codes[code];
+
+  return RADIO_CODE_INVALID;
+}
+
+void Config::setRadioCode(int code, uint32_t value)
+{
+  if(( code >= 0 ) && (code < RADIO_CODE_MAX)) {
+    radio_codes[code] = value;
+
+    int connector = (code < 3) ? 1 : 2;
+
+    int st = code;
+    if( st >= 3 )
+      st -= 3;
+
+    const char * states [] = {"on", "off", "toggle"};
+
+    DBG("Setting radio %d %s to %d\n", connector, states[st], value);
+  }
 }
 

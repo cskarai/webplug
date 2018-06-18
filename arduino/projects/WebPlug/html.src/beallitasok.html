@@ -33,6 +33,24 @@
             </form>
           </div>
     
+        
+          <div class="card">
+            <h1>Rádió kódok</h1>
+
+            <form action="/settings.json" method="post">
+            <table id="radio-table" class="pure-table pure-table-horizontal"><tbody>
+              <tr><td>1&#8209;es&nbsp;konnektor&nbsp;be</td><td><input type="number" min="0" id="radio_1_on" name="radio_1_on" style="width: 100%;"/></td></tr>
+              <tr><td>1&#8209;es&nbsp;konnektor&nbsp;ki</td><td><input type="number" min="0" id="radio_1_off" name="radio_1_off" style="width: 100%;"/></td></tr>
+              <tr><td>1&#8209;es&nbsp;konnektor&nbsp;fordít</td><td><input type="number" min="0" id="radio_1_toggle" name="radio_1_toggle" style="width: 100%;"/></td></tr>
+              <tr><td>2&#8209;es&nbsp;konnektor&nbsp;be</td><td><input type="number" min="0" id="radio_2_on" name="radio_2_on" style="width: 100%;"/></td></tr>
+              <tr><td>2&#8209;es&nbsp;konnektor&nbsp;ki</td><td><input type="number" min="0" id="radio_2_off" name="radio_2_off" style="width: 100%;"/></td></tr>
+              <tr><td>2&#8209;es&nbsp;konnektor&nbsp;fordít</td><td><input type="number" min="0" id="radio_2_toggle" name="radio_2_toggle" style="width: 100%;"/></td></tr>
+            </tbody></table>
+            <input type="hidden" name="redirect" value="/beallitasok.html"/>
+            <input type="submit">
+            </form>
+          </div>
+
         </div>
         
         <!-- RIGHT COLUMN -->
